@@ -1,0 +1,27 @@
+{
+  "name": "cs-5330-project-server",
+  "version": "1.0.0",
+  "description": "Project for cs5330 at Southern Methodist University.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eli-Segovia/CS-5330-Project.git"
+  },
+  "author": "Eli Segovia, Naishur Malhotra, Corey Ellis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Eli-Segovia/CS-5330-Project/issues"
+  },
+  "homepage": "https://github.com/Eli-Segovia/CS-5330-Project#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
