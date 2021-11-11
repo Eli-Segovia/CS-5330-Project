@@ -5,7 +5,7 @@ import home from './routes/home';
 
 // load dev env vars
 if (process.env.NODE_ENV !== 'production') {
-    dotenv.config({ path: './config/.env' });
+    dotenv.config({ path: '../config/.env' });
 }
 
 const app = express();
@@ -13,6 +13,6 @@ const app = express();
 // Mount routers
 app.use('/', home);
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server running on port ${process.env.PORT}`);
+app.listen(process.env.PORT || 5000, () => {
+    console.log(`Server running on port ${process.env.PORT || 5000}`);
 });
