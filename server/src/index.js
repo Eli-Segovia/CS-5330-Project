@@ -1,18 +1,25 @@
 import express from 'express';
 import dotenv from 'dotenv';
 
+// this is just to test endpoint routes. Delete when we are dealing with real stuff
 import home from './routes/home';
+
+import morgan from 'morgan';
+
+// set app as express application
+const app = express();
 
 // load dev env vars
 if (process.env.NODE_ENV !== 'production') {
-    dotenv.config({ path: '../config/.env' });
-}
+    dotenv.config({ path: `${__dirname}/config/.env` });
 
-const app = express();
+    // Mount dev logging midde Middleware
+    app.use(morgan('dev'));
+}
 
 // Mount routers
 app.use('/', home);
 
-app.listen(process.env.PORT || 5000, () => {
-    console.log(`Server running on port ${process.env.PORT || 5000}`);
+app.listen(process.env.PORT, () => {
+    console.log(`Server running on port ${process.env.PORT}`);
 });
