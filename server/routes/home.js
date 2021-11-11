@@ -1,8 +1,8 @@
 import express from 'express';
+import { test } from '../controllers/home';
+
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.status(200).json({ sucess: true, msg: 'Some thing happened' });
-});
+router.route('/').get(test);
 
 export default router;
