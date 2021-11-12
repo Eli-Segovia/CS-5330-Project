@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 // this is just to test endpoint routes. Delete when we are dealing with real stuff
 import home from './routes/home';
 
+// this is to log some simple messages on the routes being called
 import morgan from 'morgan';
 
 // set app as express application
@@ -13,7 +14,7 @@ const app = express();
 if (process.env.NODE_ENV !== 'production') {
     dotenv.config({ path: `${__dirname}/config/.env` });
 
-    // Mount dev logging midde Middleware
+    // Mount dev logging middle Middleware
     app.use(morgan('dev'));
 }
 
