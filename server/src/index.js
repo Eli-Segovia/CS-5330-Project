@@ -1,3 +1,5 @@
+/*global process, __dirname*/
+
 import express from 'express';
 import dotenv from 'dotenv';
 
@@ -12,15 +14,15 @@ const app = express();
 
 // load dev env vars
 if (process.env.NODE_ENV !== 'production') {
-    dotenv.config({ path: `${__dirname}/config/.env` });
+  dotenv.config({ path: `${__dirname}/config/.env` });
 
-    // Mount dev logging middle Middleware
-    app.use(morgan('dev'));
+  // Mount dev logging middle Middleware
+  app.use(morgan('dev'));
 }
 
 // Mount routers
 app.use('/', home);
 
 app.listen(process.env.PORT, () => {
-    console.log(`Server running on port ${process.env.PORT}`);
+  console.log(`Server running on port ${process.env.PORT}`);
 });
