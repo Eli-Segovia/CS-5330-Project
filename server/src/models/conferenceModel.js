@@ -11,7 +11,7 @@ const ConferenceSchema = new Schema({
     },
 
     timeHeld: {
-        type: Date,
+        type: String,
         required: true
     },
 
@@ -20,10 +20,10 @@ const ConferenceSchema = new Schema({
         required: true
     },
 
-    location: {
-        type: mongoose.ObjectId,
+    Location: {
+        type: String,
         default: null
     }
 });
 
-export default mongoose.model('Conference', ConferenceSchema);
+export default mongoose.model('Conference', ConferenceSchema, 'Conferences');
