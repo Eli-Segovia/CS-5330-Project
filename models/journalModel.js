@@ -7,19 +7,18 @@ const Schema = mongoose.Schema;
 const JournalSchema = new Schema({
     name: {
         type: String,
-        required: true,
+        required: true
     },
 
     date: {
         type: Date,
-        required: true,
+        required: true
     },
 
     volume: {
         type: String,
-        required: true,
+        required: true
     }
-   
 });
 
 export default mongoose.model('Journal', JournalSchema);

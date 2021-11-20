@@ -7,24 +7,23 @@ const Schema = mongoose.Schema;
 const ConferenceSchema = new Schema({
     name: {
         type: String,
-        required: true,
+        required: true
     },
 
     timeHeld: {
         type: Date,
-        required: true,
+        required: true
     },
 
     year: {
         type: int,
-        required: true,
+        required: true
     },
 
     location: {
         type: mongoose.ObjectId,
-        default: null,
-    },
-   
+        default: null
+    }
 });
 
 export default mongoose.model('Conference', ConferenceSchema);

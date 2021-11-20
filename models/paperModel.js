@@ -7,36 +7,35 @@ const Schema = mongoose.Schema;
 const PaperSchema = new Schema({
     title: {
         type: String,
-        required: true,
+        required: true
     },
 
     authors: {
         type: [String],
-        required: true,
+        required: true
     },
 
     conference: {
         type: mongoose.ObjectId,
-        default: null,
+        default: null
     },
 
     journal: {
         type: mongoose.ObjectId,
-        default: null,
+        default: null
     },
-   
+
     category: {
         type: String,
-        required: false,
-        default: 'haircut',
+        required: false
     },
     url: {
         type: String,
-        required: null,
+        required: null
     },
     page: {
         type: String,
-        default: true,
+        default: true
     }
 });
 

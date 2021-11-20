@@ -7,35 +7,37 @@ const Schema = mongoose.Schema;
 const AuthorSchema = new Schema({
     authorId: {
         type: int,
-        required: true,
+        required: true
     },
 
     lastName: {
         type: String,
-        required: true,
+        required: true
     },
 
     firstName: {
         type: String,
-        default: null,
+        default: null
     },
 
     affiliation: {
-        type: [{
-            name: {
-                type: String,
-                required: true,
-            },
-            start: {
-                type: Date,
-                required: true,
-            },
-            end: {
-                type: Date,
-                default: null,
+        type: [
+            {
+                name: {
+                    type: String,
+                    required: true
+                },
+                start: {
+                    type: Date,
+                    required: true
+                },
+                end: {
+                    type: Date,
+                    default: null
+                }
             }
-        }],
-        default: null,
+        ],
+        default: null
     }
 });
 
