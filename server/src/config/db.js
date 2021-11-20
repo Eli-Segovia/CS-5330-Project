@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 
 const connectDB = async () => {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
+    const conn = await mongoose.connect('mongodb+srv://admin:u95AmrYdN47xxLph@researchpapers-cluster0.uapze.mongodb.net/Research_Papers?retryWrites=true&w=majority', {
         useNewURLParser: true,
-        useCreateIndex: true,
-        useFindAndMOdify: true,
+        //useCreateIndex: true,
+        //useFindAndMOdify: true,
     });
 
     console.log(`MongoDB Connected: ${conn.connection.host}`);
