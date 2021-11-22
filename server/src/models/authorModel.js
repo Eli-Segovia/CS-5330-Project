@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
  */
 const AuthorSchema = new Schema({
     authorId: {
-        type: int,
+        type: Number,
         required: true
     },
 
