@@ -1,0 +1,26 @@
+* {
+    box-sizing: border-box;
+}
+
+/* sets some html5 elements to block */
+article,
+aside,
+audio,
+footer,
+header,
+nav,
+section,
+video {
+    display: block;
+}
+
+/* just doing some stuff for the body */
+body {
+    font-size: 1.4rem;
+    text-rendering: optimizeLegibility;
+}
+
+/* this is a test, we will delete for sure */
+div {
+    color: red;
+}
