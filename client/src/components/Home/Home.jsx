@@ -7,7 +7,14 @@ function Home() {
         <div className='Home bg-primary vh-100'>
             <div className='Home-Container d-flex flex-column justify-content-center align-items-center'>
                 <img className='Home-Logo' src={Logo} alt='PaperKing logo' />
-                <h2>Research Papers on Demand</h2>
+                <div className='Home-Btn-Container d-flex flex-column w-75'>
+                    <button className='btn bg-white btn-block m-2'>
+                        Button 1
+                    </button>
+                    <button className='btn bg-white btn-block m-2'>
+                        Button 2
+                    </button>
+                </div>
             </div>
         </div>
     );
