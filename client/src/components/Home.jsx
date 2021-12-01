@@ -1,5 +1,4 @@
 import React from 'react';
-import '../styles/sass/Home.scss';
 import { Link } from 'react-router-dom';
 import Logo from '../assets/PaperKing_logos/PaperKing-logos_white.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

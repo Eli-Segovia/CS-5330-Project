@@ -1,5 +1,8 @@
 // import bootstrap styles
+
 $primary: #354ca1;
 $secondary: #cc0035;
 
+@import 'Home';
+@import 'Icons';
 @import '~bootstrap/scss/bootstrap.scss';

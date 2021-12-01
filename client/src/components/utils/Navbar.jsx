@@ -1,11 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../../styles/css/icons.css';
 function Navbar() {
     return (
-        <nav className='navbar navbar-expand-lg navbar-dark bg-primary'>
+        <nav className='navbar navbar-expand-lg navbar-dark bg-primary d-flex justify-content-center'>
             <Link className='text-white btn' to='/'>
-                Hello
+                <i
+                    style={{
+                        fontSize: '6rem',
+                        lineHeight: 0.5,
+                    }}
+                    className='iconify icon-paper_king'
+                >
+                    &#xe800;
+                </i>
             </Link>
         </nav>
     );
