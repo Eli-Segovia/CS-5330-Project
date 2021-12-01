@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/sass/Home.scss';
 import { Link } from 'react-router-dom';
 import Logo from '../assets/PaperKing_logos/PaperKing-logos_white.png';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 function Home() {
     return (
         <div className='Home bg-primary vh-100 w-100'>
@@ -15,15 +15,15 @@ function Home() {
                 <div className='Home-Btn-Container d-flex flex-column w-50 h-25'>
                     <Link
                         to='/searchPapers'
-                        className='btn bg-white btn-block m-2'
+                        className='RouteLink btn bg-white btn-block m-2'
                     >
-                        Search Papers
+                        <FontAwesomeIcon icon='search' /> Search Papers
                     </Link>
                     <Link
                         to='/addPapers'
-                        className='btn bg-white btn-block m-2'
+                        className='RouteLink btn bg-white btn-block m-2'
                     >
-                        Add Papers
+                        <FontAwesomeIcon icon='book-medical' /> Add Papers
                     </Link>
                 </div>
             </div>

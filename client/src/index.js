@@ -6,6 +6,11 @@ import './styles/sass/index.scss';
 import Home from './components/Home';
 import AddPapers from './components/AddPapers/AddPapers';
 import Search from './components/SearchPapers/Search';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { faBookMedical, faSearch } from '@fortawesome/free-solid-svg-icons';
+
+library.add(fas, faBookMedical, faSearch);
 
 ReactDOM.render(
     <BrowserRouter>
