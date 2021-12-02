@@ -1,5 +1,5 @@
 import express from 'express';
-import { conferencetest } from '../controllers/conferenceController';
+import { conferencetest } from '../controllers/conference';
 
 const router = express.Router();
 

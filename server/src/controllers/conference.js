@@ -1,4 +1,4 @@
-import Conference from '../models/conferenceModel';
+import Conference from '../models/Conference';
 
 export const conferencetest = async (req, res, next) => {
     console.log('Testing');
