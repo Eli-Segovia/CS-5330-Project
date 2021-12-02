@@ -19,8 +19,3 @@ body {
     font-size: 1.4rem;
     text-rendering: optimizeLegibility;
 }
-
-/* this is a test, we will delete for sure */
-div {
-    color: red;
-}
