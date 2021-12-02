@@ -5,6 +5,8 @@ import {Journal} from '../../../../server/src/models/Journal'
 import {Conference} from '../../../../server/src/models/Conference'
 import { conferencerepository } from '../../../../server/src/controllers/conference'
 
+var conferencepages;
+var journalpages;
 class CreatePaper extends React.Component{
     constructor(props){ 
         super(props);
@@ -21,6 +23,7 @@ class CreatePaper extends React.Component{
             ConferencetimeHeld:'',
             ConferenceYear:'',
             ConferenceLocation:'',
+            isjournal: false,
             Journalname:'',
             Journaldate:'',
             Journalvolume:''
@@ -28,12 +31,57 @@ class CreatePaper extends React.Component{
         this.handChange = this.handChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
+     
     handChange(event)
     {
         this.setState({value : event.target.value});
     }
-    
+
+    if (isconference)
+    {
+        conferencepages = <div>
+                                    <label className="col" required={!this.state.isconference} hidden={this.state.isconference}>
+                                    <input type="text" id="Conferencename" name="Conferencename" value={this.state.Conferencename}
+                                    placeholder="Conferencename" className="form-control" onChange={this.handleChange}>
+                                    </input>
+                                </label>
+                                <label className="col" required={!this.state.isconference} hidden={this.state.isconference}>
+                                    <input type="text" id="ConferencetimeHeld" name="ConferencetimeHeld" value={this.state.ConferencetimeHeld}
+                                    placeholder="ConferencetimeHeld" className="form-control" onChange={this.handleChange}>
+                                    </input>
+                                </label>
+                                <label className="col" required={!this.state.isconference} hidden={this.state.isconference}>
+                                    <input type="text" id="ConferenceYear" name="ConferenceYear" value={this.state.ConferenceYear}
+                                    placeholder="ConferenceYear" className="form-control" onChange={this.handleChange}>
+                                    </input>
+                                </label>
+                                <label className="col" required={!this.state.isconference} hidden={this.state.isconference}>
+                                    <input type="text" id="ConferenceLocation" name="ConferenceLocation" value={this.state.ConferenceLocation}
+                                    placeholder="ConferenceLocation" className="form-control" onChange={this.handleChange}>
+                                    </input>
+                                </label>
+        </div>
+                                       
+    }
+    if (isjournal) {
+        journalpages =    <div>
+                                <label className="col" >
+                           <input type="text" id="Journalname" name="Journalname" value={this.state.Journalname}
+                           placeholder="Journalname" className="form-control" onChange={this.handleChange}>
+                           </input>
+                       </label>
+                       <label className="col" >
+                           <input type="text" id="Journaldate" name="Journaldate" value={this.state.Journaldate}
+                           placeholder="Journaldate" className="form-control" onChange={this.handleChange}>
+                           </input>
+                       </label>
+                       <label className="col" >
+                           <input type="text" id="Journalvolume" name="Journalvolume" value={this.state.Journalvolume}
+                           placeholder="Journalvolume" className="form-control"onChange={this.handleChange}>
+                           </input>
+                       </label>
+                            </div>
+    }
     handleSubmit(event){
         //write the route please and thank you
     }
@@ -45,8 +93,12 @@ class CreatePaper extends React.Component{
                 <form onSubmit={this.handleSubmit} className="card container py-4">
                     <h1 className="card-title text-center ">Add Paper</h1>
                     <label>
-                        <input type="checkbox" name="Conference " id= "Conference" onChange={this.handleChange}
-                        checked={this.state.conference} onChange={this.handleChange}></input>
+                        <input type="checkbox" name="isconference " id= "isconference" onChange={this.handleChange}
+                        checked={this.state.isconference} onChange={this.handleChange}> Conference</input>
+                    </label>
+                    <label>
+                        <input type="checkbox" name="isjournal " id= "isjournal" onChange={this.handleChange}
+                        checked={this.state.isjournal} onChange={this.handleChange}> Journal</input>
                     </label>
                    <div className="row">
                        <label className="col">
@@ -84,41 +136,8 @@ class CreatePaper extends React.Component{
                            placeholder="page" className="form-control" onChange={this.handleChange}>
                            </input>
                        </label>
-                       <label className="col" required={!this.state.isconference} hidden={this.state.isconference}>
-                           <input type="text" id="Conferencename" name="Conferencename" value={this.state.Conferencename}
-                           placeholder="Conferencename" className="form-control" onChange={this.handleChange}>
-                           </input>
-                       </label>
-                       <label className="col" required={!this.state.isconference} hidden={this.state.isconference}>
-                           <input type="text" id="ConferencetimeHeld" name="ConferencetimeHeld" value={this.state.ConferencetimeHeld}
-                           placeholder="ConferencetimeHeld" className="form-control" onChange={this.handleChange}>
-                           </input>
-                       </label>
-                       <label className="col" required={!this.state.isconference} hidden={this.state.isconference}>
-                           <input type="text" id="ConferenceYear" name="ConferenceYear" value={this.state.ConferenceYear}
-                           placeholder="ConferenceYear" className="form-control" onChange={this.handleChange}>
-                           </input>
-                       </label>
-                       <label className="col" required={!this.state.isconference} hidden={this.state.isconference}>
-                           <input type="text" id="ConferenceLocation" name="ConferenceLocation" value={this.state.ConferenceLocation}
-                           placeholder="ConferenceLocation" className="form-control" onChange={this.handleChange}>
-                           </input>
-                       </label>
-                       <label className="col" >
-                           <input type="text" id="Journalname" name="Journalname" value={this.state.Journalname}
-                           placeholder="Journalname" className="form-control" onChange={this.handleChange}>
-                           </input>
-                       </label>
-                       <label className="col" >
-                           <input type="text" id="Journaldate" name="Journaldate" value={this.state.Journaldate}
-                           placeholder="Journaldate" className="form-control" onChange={this.handleChange}>
-                           </input>
-                       </label>
-                       <label className="col" >
-                           <input type="text" id="Journalvolume" name="Journalvolume" value={this.state.Journalvolume}
-                           placeholder="Journalvolume" className="form-control"onChange={this.handleChange}>
-                           </input>
-                       </label>
+                       {conferencepages}
+                       {journalpages}
                    </div>
                    <input type="submit" value="submit" className="btn btn-success mt-2 rounded-pill" required/>
                 </form>
