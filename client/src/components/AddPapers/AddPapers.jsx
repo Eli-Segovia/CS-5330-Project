@@ -116,6 +116,7 @@ class CreatePaper extends React.Component{
                            </input>
                        </label>
                    </div>
+                   <input type="submit" value="submit" className="btn btn-success mt-2 rounded-pill" required/>
                 </form>
             </div>
         );
