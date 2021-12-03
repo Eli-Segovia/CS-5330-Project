@@ -8,7 +8,7 @@ export const createAuthor = async (req, res, next) => {
         lastName: req.body.lastName,
         affiliation: {
             $elemMatch: {
-                name: req.body.affiliationName,
+                name: req.body.affiliation.name,
                 start: req.body.start
             }
         }
