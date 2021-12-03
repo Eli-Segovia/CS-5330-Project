@@ -25,12 +25,12 @@ const PaperSchema = new Schema({
     },
     url: {
         type: String,
-        required: null
+        default: null
     },
     page: {
         type: String,
-        default: true
+        default: null
     }
 });
 
-export default mongoose.model('Paper', PaperSchema);
+export default mongoose.model('Papers', PaperSchema);
