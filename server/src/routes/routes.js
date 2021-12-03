@@ -18,10 +18,7 @@ router
     .post(journal.createJournal)
     .post(paper.createPaperInJournal);
 
-router
-    .route('/createPaperConference')
-    .post(conference.createConference)
-    .post(paper.createPaperInConference);
+router.route('/createPaperConference').post(paper.createPaperInConference);
 
 router.route('/getAuthorBooks').get(author.getAuthorBooks);
 
