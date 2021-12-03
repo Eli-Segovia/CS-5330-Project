@@ -24,7 +24,11 @@ router
     .post(paper.createPaperInConference);
 
 router.route('/getAuthorBooks').get(author.getAuthorBooks);
+
+/* Currently, this route is breaking stuff...
 router.route('/addAffiliation').put(author.addAffiliation);
+*/
+
 router.route('/authors').get(author.getAuthors);
 router.route('/createAuthor').post(author.createAuthor);
 router

@@ -3,9 +3,7 @@ import dotenv from 'dotenv';
 import conn from './config/db';
 import cors from 'cors';
 
-// this is just to test endpoint routes. Delete when we are dealing with real stuff
-import home from './routes/home';
-import conferences from './routes/conferences';
+import conferences from './routes/routes';
 
 // this is to log some simple messages on the routes being called
 import morgan from 'morgan';
