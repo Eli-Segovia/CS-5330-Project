@@ -5,7 +5,6 @@ import Navbar from '../utils/Navbar';
 
 class Search extends React.Component {
 
-
     constructor(props) {
         super(props);
         this.state = {
@@ -26,102 +25,116 @@ class Search extends React.Component {
     handleSubmit(event) {
         console.log("Inside gui handlesubmit");
         axios.get('http://localhost:5000/getPaper', {
-            title: this.state.nameofpaper
+            params: {
+                title: this.state.nameofpaper
+            }
 
+        })
+        .then((res) => {
+            //console.log(res.data.paper[0]);
+            this.setState({ papers: res.data.paper });
+            alert('set State');
+            console.log(this.state.papers[0]);
+            console.log(this.state.papers[0].title);
         })
         event.preventDefault();
         alert('did it');
     }
 
+    
 
     options(){
         
         if(!this.state.papers.conference)
         {
+            return (
             <li className="form-inline row list-group-item" >
             <div className="card ">
                 <div className="card-header">
                     <h2 className-="card-title">
-                    <div className="authors"> {this.state.papers.title} </div>
+                    <div className="authors"> {this.state.papers[0].title} </div>
                     </h2>
                     <div className="card-body">
-                    {this.state.papers.authors.firstName}
+                    {this.state.papers[0].authors.firstName}
                     </div>
                     <div className="card-body">
-                    {this.state.papers.authors.lastName}
+                    {this.state.papers[0].authors.lastName}
                     </div>
                     <div className="card-body">
-                    {this.state.papers.authors.affiliation.type.name}
+                    { this.state.papers[0].authors.affiliation && this.state.papers[0].authors.affiliation.name}
                     </div>
                     <div className="card-body">
-                    {this.state.papers.authors.affiliation.type.start}
+                    {this.state.papers[0].authors.affiliation && this.state.papers[0].authors.affiliation.start}
                     <div className="card-body">
-                    {this.state.papers.authors.affiliation.type.end}
+                    {this.state.papers[0].authors.affiliation && this.state.papers[0].authors.affiliation.end}
                     </div>
                     <div className="card-body">
-                    {this.state.papers.journal.name}
+                    {this.state.papers[0].journal && this.state.papers[0].journal.name}
                     </div>
                     <div className="card-body">
-                    {this.state.papers.journal.date}
+                    { this.state.papers[0].journal && this.state.papers[0].journal.date}
                     </div>
                     <div className="card-body">
-                    {this.state.papers.journal.volume}
+                    {this.state.papers[0].journal && this.state.papers[0].journal.volume}
                     </div>
                     <div className="card-body">
-                    {this.state.papers.url}
+                    {this.state.papers[0].url}
                     </div>
                     <div className="card-body">
-                    {this.state.papers.page}
+                    {this.state.papers[0].page}
                     </div>
                     </div>
                 </div>
             </div>    
         </li>
+            )
         }
         else
         {
+            return (
             <li className="form-inline row list-group-item" >
             <div className="card ">
                 <div className="card-header">
                     <h2 className-="card-title">
-                    <div className="authors"> {this.state.papers.title} </div>
+                    <div className="authors"> {this.state.papers[0].title} </div>
                     </h2>
                     <div className="card-body">
-                    {this.state.papers.authors.firstname}
+                    {this.state.papers[0].authors.firstname}
                     </div>
                     <div className="card-body">
-                    {this.state.papers.authors.lastName}
+                    {this.state.papers[0].authors.lastName}
                     </div>
                     <div className="card-body">
-                    {this.state.papers.authors.affiliation.type.name}
+                    {this.state.papers[0].authors.affiliation && this.state.papers[0].authors.affiliation.name}
                     </div>
                     <div className="card-body">
-                    {this.state.papers.authors.affiliation.type.start}
+                    {this.state.papers[0].authors.affiliation && this.state.papers[0].authors.affiliation.start}
                     <div className="card-body">
-                    {this.state.papers.authors.affiliation.type.end}
+                    {this.state.papers[0].authors.affiliation && this.state.papers[0].authors.affiliation.end}
                     </div>
                     <div className="card-body">
-                    {this.state.papers.conference.Name}
+                    {this.state.papers[0].conference.Name}
                     </div>
                     <div className="card-body">
-                    {this.state.papers.conference.timeHeld}
+                    {this.state.papers[0].conference.timeHeld}
                     </div>
                     <div className="card-body">
-                    {this.state.papers.conference.Year}
+                    {this.state.papers[0].conference.Year}
                     </div>
                     <div className="card-body">
-                    {this.state.papers.conference.Location}
+                    {this.state.papers[0].conference.Location}
                     </div>
                     <div className="card-body">
-                    {this.state.papers.url}
+                    {this.state.papers[0].url}
                     </div>
                     <div className="card-body">
-                    {this.state.papers.authors.page}
+                    {this.state.papers[0].authors.page}
                     </div>
                     </div>
                 </div>
             </div>    
         </li>
+        )
         }
     }
 
@@ -153,7 +166,7 @@ class Search extends React.Component {
                         </form> 
             </label>
             {
-                this.state.papers.length > 0 && 
+                this.state.papers.length > 0 &&
                 this.options()
             }
             </div>
@@ -161,4 +174,4 @@ class Search extends React.Component {
     }
 }
 
-export default SearchPapers;
+export default Search;

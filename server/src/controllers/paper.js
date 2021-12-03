@@ -58,13 +58,17 @@ export const getallPapers = async (req, res, next) => {
 }
 
 export const getOnePaper = async (req, res, next) => {
-   
+    //console.log(req.query.title);
+
     try {
-        const paper = await Paper.find({title: req.params.title});
+        const paper = await Paper.find({title: req.query.title});
         res.status(200).json({
             success: true,
             paper,
         });
+
+        //console.log(paper);
+
     } catch (err) {
         next(err);
     }
