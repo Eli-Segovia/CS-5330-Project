@@ -9,9 +9,8 @@ const PaperSchema = new Schema({
         type: String,
         required: true
     },
-
     authors: {
-        type: [String],
+        type: [mongoose.ObjectId],
         required: true
     },
 
@@ -23,11 +22,6 @@ const PaperSchema = new Schema({
     journal: {
         type: mongoose.ObjectId,
         default: null
-    },
-
-    category: {
-        type: String,
-        required: false
     },
     url: {
         type: String,
