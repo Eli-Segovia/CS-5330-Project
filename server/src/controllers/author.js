@@ -9,7 +9,7 @@ export const createAuthor = async (req, res, next) => {
         affiliation: {
             $elemMatch: {
                 name: req.body.affiliation.name,
-                start: req.body.start
+                start: req.body.affiliation.start
             }
         }
     });
