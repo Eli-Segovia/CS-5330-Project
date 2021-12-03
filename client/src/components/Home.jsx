@@ -16,7 +16,7 @@ function Home() {
                         to='/searchPapers'
                         className='RouteLink btn bg-white btn-block m-2'
                     >
-                        <FontAwesomeIcon icon='search' /> Search Papers
+                        <FontAwesomeIcon icon='search' /> Search
                     </Link>
                     <Link
                         to='/addPapers'
