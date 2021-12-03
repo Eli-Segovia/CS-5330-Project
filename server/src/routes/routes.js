@@ -13,10 +13,7 @@ router.route('/journals').get(journal.getallJournals);
 
 router.route('/getPaper').get(paper.getOnePaper);
 router.route('/papers').get(paper.getallPapers);
-router
-    .route('/createPaperJournal')
-    .post(journal.createJournal)
-    .post(paper.createPaperInJournal);
+router.route('/createPaperJournal').post(paper.createPaperInJournal);
 
 router.route('/createPaperConference').post(paper.createPaperInConference);
 

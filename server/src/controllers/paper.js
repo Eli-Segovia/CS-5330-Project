@@ -4,7 +4,13 @@ import Journal from '../models/Journal';
 import Conference from '../models/Conference';
 
 export const createPaperInJournal = async (req, res, next) => {
-    let j = await Journal.findOne({ name: req.body.journalName });
+    let journal = await Journal.findOne({ name: req.body.name });
+    if (!journal) {
+        journal = new Journal(req.body);
+        journal.save();
+    } else {
+        console.log(journal);
+    }
     let paper = await Paper.findOne({ title: req.body.title });
     if (!paper) {
         paper = new Paper(req.body);
@@ -13,10 +19,8 @@ export const createPaperInJournal = async (req, res, next) => {
         return next(new Error('paper already exists'));
     }
     try {
-        paper.journal = j._id;
+        paper.journal = journal._id;
         const newPaper = await paper.save();
-        //create token
-        //const token = paper.getSignedJwtToken();
 
         res.json({ success: true, newPaper });
     } catch (err) {
@@ -30,6 +34,7 @@ export const createPaperInConference = async (req, res, next) => {
     let conference = await Conference.findOne({ name: req.body.name });
     if (!conference) {
         conference = new Conference(req.body);
+        await conference.save();
     }
     let paper = await Paper.findOne({ title: req.body.title });
     if (!paper) {
