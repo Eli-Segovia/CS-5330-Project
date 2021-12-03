@@ -13,7 +13,7 @@ export const createPaper = async (req, res, next) => {
         //create token
         const token = paper.getSignedJwtToken();
 
-        res.json({ success: true, token, newAuthor});
+        res.json({ success: true, token, newPaper});
     } catch (err) {
         next(err);
         console.log(err);

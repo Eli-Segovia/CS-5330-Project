@@ -12,9 +12,12 @@ router.route('/getJournal').get(journal.getJournal);
 router.route('/journals').get(journal.getallJournals);
 
 router.route('/getPaper').get(paper.getOnePaper);
+router.route('/papers').get(paper.getallPapers);
+router.route('/createPaper').post(paper.createPaper);
 
 
 router.route('/getAuthorBooks').get(author.getAuthorBooks);
 router.route('/authors').get(author.getAuthors)
+router.route('/createAuthor').post(author.createAuthor);
 
 export default router;

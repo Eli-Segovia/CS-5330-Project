@@ -2,15 +2,9 @@ import Author from '../models/Author'
 import Paper from '../models/Paper'
 
 export const createAuthor = async (req, res, next) => {
-    let author = await Author.findOne({ firstName: req.body.firstName, lastName: req.body.lastName });
-    if (!author) {
-        author = new Author(req.body);
-    } else {
-        console.log(author);
-        return next(new Error('Author already exists'));
-    }
+    let author = new Author(req.body);
     try {
-        const newAuthor = await user.save();
+        const newAuthor = await author.save();
         //create token
         const token = author.getSignedJwtToken();
 
