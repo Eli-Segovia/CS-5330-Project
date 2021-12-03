@@ -1,8 +1,8 @@
 import express from 'express';
 import * as conference from '../controllers/conference';
-import * as journal from '../controllers/journal'
-import * as paper from '../controllers/paper'
-import * as author from '../controllers/author'
+import * as journal from '../controllers/journal';
+import * as paper from '../controllers/paper';
+import * as author from '../controllers/author';
 const router = express.Router();
 
 router.route('/').get(conference.conferencetest);
@@ -13,19 +13,27 @@ router.route('/journals').get(journal.getallJournals);
 
 router.route('/getPaper').get(paper.getOnePaper);
 router.route('/papers').get(paper.getallPapers);
-router.route('/createPaperJournal')
-        .post(journal.createJournal)
-        .post(paper.createPaperInJournal);
+router
+    .route('/createPaperJournal')
+    .post(journal.createJournal)
+    .post(paper.createPaperInJournal);
 
-
-router.route('/createPaperConference')
-        .post(conference.createConference)
-        .post(paper.createPaperInConference);
+router
+    .route('/createPaperConference')
+    .post(conference.createConference)
+    .post(paper.createPaperInConference);
 
 router.route('/getAuthorBooks').get(author.getAuthorBooks);
+
+/* Currently, this route is breaking stuff...
 router.route('/addAffiliation').put(author.addAffiliation);
+*/
+
 router.route('/authors').get(author.getAuthors);
 router.route('/createAuthor').post(author.createAuthor);
-router.route('/addAuthorToBook').post(author.createAuthor).put(paper.addAuthorToBook);
+router
+    .route('/addAuthorToBook')
+    .post(author.createAuthor)
+    .put(paper.addAuthorToBook);
 
 export default router;
