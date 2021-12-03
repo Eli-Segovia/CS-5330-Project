@@ -42,13 +42,8 @@ export const getAuthors = async (req, res, next) => {
 
 //return books for a given author
 export const getAuthorBooks = async (req, res, next) => {
-<<<<<<< HEAD
     const first = req.params.firstName;
     const last = req.params.lastName;
-=======
-    const first = req.body.firstName;
-    const last = req.body.lastName;
->>>>>>> 14543a5 (Some fixes)
     try {
         var as = await Author.find({ firstName: first, lastName: last });
         if (!user) {
@@ -64,7 +59,6 @@ export const getAuthorBooks = async (req, res, next) => {
         next(err);
     }
 };
-<<<<<<< HEAD
 
 export const addAffiliationToAuthor = async (req, res, next) => {
     await Author.findOneAndUpdate(
@@ -89,5 +83,3 @@ export const addAffiliationToAuthor = async (req, res, next) => {
         }
     );
 };
-=======
->>>>>>> 14543a5 (Some fixes)
