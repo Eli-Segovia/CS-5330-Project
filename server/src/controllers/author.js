@@ -1,14 +1,13 @@
-import Author from '../models/Author'
-import Paper from '../models/Paper'
+import Author from '../models/Author';
+import Paper from '../models/Paper';
 
 export const createAuthor = async (req, res, next) => {
+    console.log(req.body);
     let author = new Author(req.body);
     try {
         const newAuthor = await author.save();
-        //create token
-        const token = author.getSignedJwtToken();
 
-        res.json({ success: true, token, newAuthor});
+        res.json({ success: true, newAuthor });
     } catch (err) {
         next(err);
         console.log(err);
@@ -26,19 +25,18 @@ export const getAuthors = async (req, res, next) => {
 
 //return books for a given author
 export const getAuthorBooks = async (req, res, next) => {
-    const first  = req.body.firstName;
+    const first = req.body.firstName;
     const last = req.body.lastName;
     try {
-        var as = await Author.find({firstName: first, lastName:last});
+        var as = await Author.find({ firstName: first, lastName: last });
         if (!user) {
             return next(new ErrorResponse('User not found', 404));
         }
-        const papers = await Paper.find({authors: as.id});
-
+        const papers = await Paper.find({ authors: as.id });
 
         res.json({
             sucess: true,
-            papers,
+            papers
         });
     } catch (err) {
         next(err);
