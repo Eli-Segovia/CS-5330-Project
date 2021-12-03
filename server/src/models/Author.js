@@ -5,10 +5,10 @@ const Schema = mongoose.Schema;
  * Create database scheme for notes
  */
 const AuthorSchema = new Schema({
-    authorId: {
-        type: Number,
-        required: true
-    },
+    // authorId: {
+    //     type: Number,
+    //     required: true
+    // },
 
     lastName: {
         type: String,
@@ -21,24 +21,13 @@ const AuthorSchema = new Schema({
     },
 
     affiliation: {
-        type: [
-            {
-                name: {
-                    type: String,
-                    required: true
-                },
-                start: {
-                    type: Date,
-                    required: true
-                },
-                end: {
-                    type: Date,
-                    default: null
-                }
-            }
-        ],
-        default: null
+        type: Array,
+        of: new Schema({
+            name: String,
+            start: Date,
+            end: Date
+        })
     }
 });
 
-export default mongoose.model('Author', AuthorSchema);
+export default mongoose.model('Author', AuthorSchema, 'Authors');
