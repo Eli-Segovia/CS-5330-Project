@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import conn from './config/db';
+import cors from 'cors';
 
 // this is just to test endpoint routes. Delete when we are dealing with real stuff
 import home from './routes/home';
@@ -11,6 +12,12 @@ import morgan from 'morgan';
 
 // set app as express application
 const app = express();
+
+app.use(
+    cors({
+        origin: '*'
+    })
+);
 
 // load dev env vars
 if (process.env.NODE_ENV !== 'production') {
