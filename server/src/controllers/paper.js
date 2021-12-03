@@ -45,6 +45,8 @@ export const createPaperInConference = async (req, res, next) => {
     }
     try {
         paper.conference = conference._id;
+        console.log(req.body.authors);
+        paper.authors = req.body.authors;
         const newPaper = await paper.save();
         //create token
         //const token = paper.getSignedJwtToken();
@@ -89,10 +91,10 @@ export const addAuthorToBook = async (req, res, next) => {
         }
     });
     await Paper.findOneAndUpdate(
-        { title: req.params.title },
+        { title: req.body.title },
         {
             $push: {
-                authors: author._id
+                authors: req.body.author._id
             }
         }
     );
