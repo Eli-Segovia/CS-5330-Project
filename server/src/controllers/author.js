@@ -2,6 +2,7 @@ import Author from '../models/Author';
 import Paper from '../models/Paper';
 
 export const createAuthor = async (req, res, next) => {
+    console.log(req.body);
     let author = await Author.findOne({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
