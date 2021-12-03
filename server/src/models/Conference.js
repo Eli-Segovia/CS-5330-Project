@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
  * Create database scheme for notes
  */
 const ConferenceSchema = new Schema({
-    Name: {
+    name: {
         type: String,
         required: true
     },
@@ -15,12 +15,12 @@ const ConferenceSchema = new Schema({
         required: true
     },
 
-    Year: {
+    year: {
         type: Number,
         required: true
     },
 
-    Location: {
+    location: {
         type: String,
         default: null
     }
