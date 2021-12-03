@@ -61,10 +61,22 @@ export const getOnePaper = async (req, res, next) => {
    
     try {
         const paper = await Paper.find({title: req.params.title});
+        
         res.status(200).json({
             success: true,
             paper,
         });
+
+        const list = paper.authors;
+        for (let index = 0; index < list.length; index++) {
+            let a = list[index];
+            res.status(200).json({
+                success: true,
+                a,
+            });
+            
+        }
+
     } catch (err) {
         next(err);
     }

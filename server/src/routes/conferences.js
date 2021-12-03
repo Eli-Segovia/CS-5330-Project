@@ -23,7 +23,7 @@ router.route('/createPaperConference')
         .post(paper.createPaperInConference);
 
 router.route('/getAuthorBooks').get(author.getAuthorBooks);
-router.route('/addAffiliation').put(author.addAffiliation);
+router.route('/addAffiliation').put(author.addAffiliationToAuthor);
 router.route('/authors').get(author.getAuthors);
 router.route('/createAuthor').post(author.createAuthor);
 router.route('/addAuthorToBook').post(author.createAuthor).put(paper.addAuthorToBook);
