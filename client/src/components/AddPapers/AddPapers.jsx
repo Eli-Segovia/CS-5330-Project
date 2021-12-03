@@ -26,11 +26,11 @@ class AddPapers extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.renderExtraOptions = this.renderExtraOptions.bind(this);
-        this.addAuthors = this.addAuthors.bind(this);
-        this.addPaper = this.addPaper.bind(this);
+        this.addResources = this.addResources.bind(this);
     }
 
-    async addAuthors() {
+    async addResources() {
+        let authors = [];
         this.state.authors.forEach(async (author, idx) => {
             const [firstName, lastName] = author.split(' ');
             let affiliation = null;
@@ -57,11 +57,39 @@ class AddPapers extends React.Component {
                     'http://localhost:5000/createAuthor',
                     data
                 );
+                authors.push(res.data.newAuthor._id);
+                if (this.state.isconference) {
+                    console.log(authors);
+                    await axios.post(
+                        'http://localhost:5000/createPaperConference',
+                        {
+                            name: this.state.Conferencename,
+                            timeHeld: this.state.ConferencetimeHeld,
+                            year: this.state.ConferenceYear,
+                            location: this.state.ConferenceLocation,
+                            title: this.state.title,
+                            url: this.state.url || null,
+                            page: this.state.page || null,
+                            authors: [...authors]
+                        }
+                    );
+                } else {
+                    await axios.post(
+                        'http://localhost:5000/createPaperJournal',
+                        {
+                            name: this.state.Journalname,
+                            date: this.state.Journaldate,
+                            volume: this.state.Journalvolume,
+                            title: this.state.title,
+                            url: this.state.url || null,
+                            page: this.state.page || null,
+                            authors: [...authors]
+                        }
+                    );
+                }
             }
         });
     }
-
-    addPaper() {}
 
     renderExtraOptions() {
         if (this.state.isconference) {
@@ -165,7 +193,7 @@ class AddPapers extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.addAuthors();
+        this.addResources();
     }
 
     render() {
