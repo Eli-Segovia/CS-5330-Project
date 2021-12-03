@@ -1,14 +1,13 @@
-import Paper from '../models/Paper'
-import Author from '../models/Author'
+import Paper from '../models/Paper';
+import Author from '../models/Author';
 import Journal from '../models/Journal';
 import Conference from '../models/Conference';
 
-
 export const createPaperInJournal = async (req, res, next) => {
-    let j = await Journal.findOne({name: req.body.journalName});
+    let j = await Journal.findOne({ name: req.body.journalName });
     let paper = await Paper.findOne({ title: req.body.title });
     if (!paper) {
-            paper = new Paper(req.body);
+        paper = new Paper(req.body);
     } else {
         console.log(paper);
         return next(new Error('paper already exists'));
@@ -19,7 +18,7 @@ export const createPaperInJournal = async (req, res, next) => {
         //create token
         //const token = paper.getSignedJwtToken();
 
-        res.json({ success: true, newPaper});
+        res.json({ success: true, newPaper });
     } catch (err) {
         next(err);
         console.log(err);
@@ -27,21 +26,25 @@ export const createPaperInJournal = async (req, res, next) => {
 };
 
 export const createPaperInConference = async (req, res, next) => {
-    let c = await Conference.findOne({name: req.body.conferenceName});
+    console.log('this did happen');
+    let conference = await Conference.findOne({ name: req.body.name });
+    if (!conference) {
+        conference = new Conference(req.body);
+    }
     let paper = await Paper.findOne({ title: req.body.title });
     if (!paper) {
-            paper = new Paper(req.body);
+        paper = new Paper(req.body);
     } else {
         console.log(paper);
         return next(new Error('paper already exists'));
     }
     try {
-        paper.conference = c._id;
+        paper.conference = conference._id;
         const newPaper = await paper.save();
         //create token
         //const token = paper.getSignedJwtToken();
 
-        res.json({ success: true, newPaper});
+        res.json({ success: true, newPaper });
     } catch (err) {
         next(err);
         console.log(err);
@@ -55,26 +58,37 @@ export const getallPapers = async (req, res, next) => {
     } catch (err) {
         next(err);
     }
-}
+};
 
 export const getOnePaper = async (req, res, next) => {
-   
     try {
-        const paper = await Paper.find({title: req.params.title});
+        const paper = await Paper.find({ title: req.params.title });
         res.status(200).json({
             success: true,
-            paper,
+            paper
         });
     } catch (err) {
         next(err);
     }
-}
+};
 
 export const addAuthorToBook = async (req, res, next) => {
-    let author = await Author.findOne({firstName: req.body.firstName, lastName: req.body.lastName, affiliation: {$elemMatch: { name: req.body.affiliationName, start: req.body.start}}});
-    await Paper.findOneAndUpdate({title: req.params.title}, {
-        $push: {
-            authors: author._id
-        }});
-    
-}
+    let author = await Author.findOne({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        affiliation: {
+            $elemMatch: {
+                name: req.body.affiliationName,
+                start: req.body.start
+            }
+        }
+    });
+    await Paper.findOneAndUpdate(
+        { title: req.params.title },
+        {
+            $push: {
+                authors: author._id
+            }
+        }
+    );
+};
