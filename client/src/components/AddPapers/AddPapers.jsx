@@ -109,7 +109,7 @@ class AddPapers extends React.Component {
                             id='Journalvolume'
                             name='Journalvolume'
                             value={this.state.Journalvolume}
-                            placeholder='Journalvolume'
+                            placeholder='Journal Volume'
                             className='form-control'
                             onChange={this.handleChange}
                         />
@@ -187,11 +187,11 @@ class AddPapers extends React.Component {
                                 />
                             </label>
                             {this.state.authors.map((author, idx) => (
-                                <>
+                                <div key={idx}>
                                     <h5 className='align-self-center'>
                                         Author {idx + 1}
                                     </h5>
-                                    <div className='my-2 d-flex flex-md-row flex-sm-column align-items-center justify-content-between'>
+                                    <div className='my-2 d-flex flex-md-row flex-sm-column flex-xs-column align-items-center justify-content-between'>
                                         <label className=''>
                                             <input
                                                 type='text'
@@ -321,7 +321,7 @@ class AddPapers extends React.Component {
                                                 </button>
                                             )}
                                     </div>
-                                </>
+                                </div>
                             ))}
                             <label className='my-2'>
                                 <input
