@@ -2,17 +2,15 @@
 import React from 'react';
 import Navbar from '../utils/Navbar';
 
-var conferencepages;
-var journalpages;
 class AddPapers extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             title: '',
-            authors: '',
-            conference: '',
-            journal: '',
-            category: '',
+            authors: [''],
+            affiliations: [''],
+            startDate: [''],
+            endDate: [''],
             url: '',
             page: '',
             isconference: true,
@@ -22,7 +20,7 @@ class AddPapers extends React.Component {
             ConferenceLocation: '',
             Journalname: '',
             Journaldate: '',
-            Journalvolume: '',
+            Journalvolume: ''
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,79 +30,80 @@ class AddPapers extends React.Component {
     renderExtraOptions() {
         if (this.state.isconference) {
             return (
-                <div>
-                    <label className='col'>
+                <>
+                    <label className='my-3'>
                         <input
                             type='text'
                             id='Conferencename'
                             name='Conferencename'
                             value={this.state.Conferencename}
-                            placeholder='Conferencename'
+                            placeholder='Conference Name'
                             className='form-control'
                             onChange={this.handleChange}
                         />
                     </label>
-                    <label className='col'>
+                    <label className='my-3'>
                         <input
-                            type='text'
+                            type='number'
                             id='ConferencetimeHeld'
                             name='ConferencetimeHeld'
                             value={this.state.ConferencetimeHeld}
-                            placeholder='ConferencetimeHeld'
+                            placeholder='Conference Time Held'
                             className='form-control'
                             onChange={this.handleChange}
                         />
                     </label>
-                    <label className='col'>
+                    <label className='my-3'>
                         <input
-                            type='text'
+                            type='number'
                             id='ConferenceYear'
                             name='ConferenceYear'
                             value={this.state.ConferenceYear}
-                            placeholder='ConferenceYear'
+                            placeholder='Conference Year'
                             className='form-control'
                             onChange={this.handleChange}
                         />
                     </label>
-                    <label className='col'>
+                    <label className='my-3'>
                         <input
                             type='text'
                             id='ConferenceLocation'
                             name='ConferenceLocation'
                             value={this.state.ConferenceLocation}
-                            placeholder='ConferenceLocation'
+                            placeholder='Conference Location'
                             className='form-control'
                             onChange={this.handleChange}
                         />
                     </label>
-                </div>
+                </>
             );
         } else
             return (
-                <div>
-                    <label className='col'>
+                <>
+                    <label className='my-3'>
                         <input
                             type='text'
                             id='Journalname'
                             name='Journalname'
                             value={this.state.Journalname}
-                            placeholder='Journalname'
+                            placeholder='Journal Name'
                             className='form-control'
                             onChange={this.handleChange}
                         />
                     </label>
-                    <label className='col'>
+                    <label className='my-2'>
+                        <span className='align-self-center'>Journal Date</span>
                         <input
-                            type='text'
+                            type='date'
                             id='Journaldate'
                             name='Journaldate'
                             value={this.state.Journaldate}
-                            placeholder='Journaldate'
+                            placeholder='Journal Date'
                             className='form-control'
                             onChange={this.handleChange}
                         />
                     </label>
-                    <label className='col'>
+                    <label className='my-3'>
                         <input
                             type='text'
                             id='Journalvolume'
@@ -115,15 +114,20 @@ class AddPapers extends React.Component {
                             onChange={this.handleChange}
                         />
                     </label>
-                </div>
+                </>
             );
     }
 
     handleChange(event) {
         let property = 'value';
-        if (event.target.name === 'isconference') property = 'checked';
+        if (event.target.name === 'isconference') {
+            property = 'checked';
+            this.setState({});
+        }
         this.setState({ [event.target.name]: event.target[property] });
     }
+
+    handleDelete(event, idx) {}
 
     handleSubmit(event) {
         event.preventDefault();
@@ -137,7 +141,7 @@ class AddPapers extends React.Component {
                 <div className='container my-4 py-3'>
                     <form
                         onSubmit={this.handleSubmit}
-                        className='card container py-4'
+                        className='card container py-4 d-flex flex-column'
                     >
                         <h1 className='card-title text-center '>Add Paper</h1>
                         <div className='align-self-center'>
@@ -146,7 +150,21 @@ class AddPapers extends React.Component {
                                     name='isconference'
                                     checked={this.state.isconference}
                                     type='checkbox'
-                                    onChange={this.handleChange}
+                                    onChange={(e) => {
+                                        [
+                                            'Conferencename',
+                                            'ConferencetimeHeld',
+                                            'ConferenceYear',
+                                            'ConferenceLocation',
+                                            'Journalname',
+                                            'Journaldate',
+                                            'Journalvolume'
+                                        ].forEach((st) => {
+                                            this.setState({ [st]: '' });
+                                        });
+
+                                        this.handleChange(e);
+                                    }}
                                 />
                                 <span className='slider round'></span>
                             </label>
@@ -156,80 +174,173 @@ class AddPapers extends React.Component {
                                     : 'Journal'}
                             </label>
                         </div>
-                        <div className='row'>
-                            <label className='col'>
+                        <div className='d-flex flex-column my-3'>
+                            <label className='my-2'>
                                 <input
                                     type='text'
                                     id='title'
-                                    name='Title'
+                                    name='title'
                                     value={this.state.title}
-                                    placeholder='title'
+                                    placeholder='Title'
                                     className='form-control'
                                     onChange={this.handleChange}
                                 />
                             </label>
-                            <label className='col'>
+                            {this.state.authors.map((author, idx) => (
+                                <>
+                                    <h5 className='align-self-center'>
+                                        Author {idx + 1}
+                                    </h5>
+                                    <div className='my-2 d-flex flex-md-row flex-sm-column align-items-center justify-content-between'>
+                                        <label className=''>
+                                            <input
+                                                type='text'
+                                                id={`authors${idx}`}
+                                                value={this.state.authors[idx]}
+                                                placeholder='Name'
+                                                className='form-control'
+                                                onChange={(e) => {
+                                                    let authors =
+                                                        this.state.authors;
+                                                    authors[idx] =
+                                                        e.target.value;
+                                                    this.setState({ authors });
+                                                }}
+                                            />
+                                        </label>
+                                        <label>
+                                            <input
+                                                type='text'
+                                                id='affiliations'
+                                                name='affiliations'
+                                                value={
+                                                    this.state.affiliations[idx]
+                                                }
+                                                placeholder='Affiliations'
+                                                className='form-control my-2'
+                                                onChange={(e) => {
+                                                    let affiliations =
+                                                        this.state.affiliations;
+                                                    affiliations[idx] =
+                                                        e.target.value;
+                                                    this.setState({
+                                                        affiliations:
+                                                            affiliations
+                                                    });
+                                                }}
+                                            />
+                                        </label>
+                                        <label className='d-flex align-items-center'>
+                                            <span className='mx-2'>Start</span>
+                                            <input
+                                                type='date'
+                                                id='startDate'
+                                                name='startDate'
+                                                value={
+                                                    this.state.startDate[idx]
+                                                }
+                                                onChange={(e) => {
+                                                    let startDates =
+                                                        this.state.startDate;
+                                                    startDates[idx] =
+                                                        e.target.value;
+                                                    this.setState({
+                                                        startDate: startDates
+                                                    });
+                                                }}
+                                                className='form-control'
+                                            />
+                                        </label>
+                                        <label className='d-flex align-items-center'>
+                                            <span className='mx-2'>End</span>
+                                            <input
+                                                type='date'
+                                                id='endDate'
+                                                name='endDate'
+                                                value={this.state.endDate[idx]}
+                                                onChange={(e) => {
+                                                    let endDates =
+                                                        this.state.endDate;
+                                                    endDates[idx] =
+                                                        e.target.value;
+                                                    this.setState({
+                                                        endDate: endDates
+                                                    });
+                                                }}
+                                                className='form-control'
+                                            />
+                                        </label>
+                                        {idx ===
+                                            this.state.authors.length - 1 && (
+                                            <button
+                                                className='btn btn-success'
+                                                type='button'
+                                                onClick={(e) => {
+                                                    [
+                                                        'authors',
+                                                        'affiliations',
+                                                        'startDate',
+                                                        'endDate'
+                                                    ].forEach((st) => {
+                                                        let thisState =
+                                                            this.state[st];
+                                                        thisState.push('');
+                                                        this.setState({
+                                                            [st]: thisState
+                                                        });
+                                                    });
+                                                }}
+                                            >
+                                                +
+                                            </button>
+                                        )}
+                                        {this.state.authors.length > 1 &&
+                                            idx ===
+                                                this.state.authors.length -
+                                                    1 && (
+                                                <button
+                                                    className='btn btn-danger'
+                                                    type='button'
+                                                    onClick={(e) => {
+                                                        [
+                                                            'authors',
+                                                            'affiliations',
+                                                            'startDate',
+                                                            'endDate'
+                                                        ].forEach((st) => {
+                                                            let thisState =
+                                                                this.state[st];
+                                                            thisState.pop();
+                                                            this.setState({
+                                                                [st]: thisState
+                                                            });
+                                                        });
+                                                    }}
+                                                >
+                                                    -
+                                                </button>
+                                            )}
+                                    </div>
+                                </>
+                            ))}
+                            <label className='my-2'>
                                 <input
-                                    type='text'
-                                    id='authors'
-                                    name='Authors'
-                                    value={this.state.authors}
-                                    placeholder='authors'
-                                    className='form-control'
-                                    onChange={this.handleChange}
-                                />
-                            </label>
-                            <label className='col'>
-                                <input
-                                    type='text'
-                                    id='conference'
-                                    name='Conference'
-                                    value={this.state.conference}
-                                    placeholder='conference'
-                                    className='form-control'
-                                    onChange={this.handleChange}
-                                />
-                            </label>
-                            <label className='col'>
-                                <input
-                                    type='text'
-                                    id='journal'
-                                    name='Journal'
-                                    value={this.state.journal}
-                                    placeholder='journal'
-                                    className='form-control'
-                                    onChange={this.handleChange}
-                                />
-                            </label>
-                            <label className='col'>
-                                <input
-                                    type='text'
-                                    id='category'
-                                    name='category'
-                                    value={this.state.category}
-                                    placeholder='category'
-                                    className='form-control'
-                                    onChange={this.handleChange}
-                                />
-                            </label>
-                            <label className='col'>
-                                <input
-                                    type='text'
+                                    type='url'
                                     id='url'
                                     name='url'
                                     value={this.state.url}
-                                    placeholder='url'
+                                    placeholder='URL'
                                     className='form-control'
                                     onChange={this.handleChange}
                                 />
                             </label>
-                            <label className='col'>
+                            <label className='my-2'>
                                 <input
                                     type='text'
                                     id='page'
                                     name='page'
                                     value={this.state.page}
-                                    placeholder='page'
+                                    placeholder='Page count'
                                     className='form-control'
                                     onChange={this.handleChange}
                                 />
@@ -239,7 +350,11 @@ class AddPapers extends React.Component {
                         <input
                             type='submit'
                             value='submit'
-                            className='btn btn-primary mt-2 rounded-pill'
+                            className={`btn btn-${
+                                this.state.isconference
+                                    ? 'primary'
+                                    : 'secondary'
+                            } mt-2 rounded-pill`}
                             required
                         />
                     </form>
