@@ -70,7 +70,7 @@ export const getallPapers = async (req, res, next) => {
 export const getOnePaper = async (req, res, next) => {
     try {
         const paper = await Paper.find({ title: req.params.title });
-        const a = paper.authors;
+        const a = await Author.find({_id: {$in: paper.authors}});
         res.status(200).json({
             success: true,
             paper,
