@@ -19,7 +19,7 @@ export const getJournal = async (req, res, next) => {
 }
 
 export const createJournal = async (req, res, next) => {
-    let journal = await Journal.findOne({ name: req.body.name });
+    let journal = await Journal.findOne({ name: req.body.name, date: req.body.date});
     if (!journal) {
             journal = new Journal(req.body);
     } else {

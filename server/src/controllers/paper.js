@@ -71,11 +71,25 @@ export const getOnePaper = async (req, res, next) => {
     try {
         const paper = await Paper.find({ title: req.params.title });
         const a = await Author.find({_id: {$in: paper.authors}});
-        res.status(200).json({
-            success: true,
-            paper,
-            a
-        });
+        if(!paper.conference){
+            const j = await Journal.find({_id: paper.journal})
+            res.status(200).json({
+                success: true,
+                paper,
+                a,
+                j
+            });
+        }
+        else{
+            const c = await Conference.find({_id: paper.conference})
+            res.status(200).json({
+                success: true,
+                paper,
+                a,
+                c
+            });
+            
+        }
     } catch (err) {
         next(err);
     }
@@ -104,11 +118,13 @@ export const addAuthorToBook = async (req, res, next) => {
 
 export const getJournalPapers = async (req, res, next) => {
     try {
-        const journal = await Journal.findOne({name: req.params.name});
-        const p = await Paper.find({journal: journal._id, date: {$gt: req.params.start, $lt: req.params.end}});
+        const journal = await Journal.find({name: req.query.name});
+        const paper = await Paper.find({journal: journal._id, date: {$gt: req.query.start, $lt: req.query.end}});
+        const a = await Author.find({_id: {$in: paper.authors}});
         res.status(200).json({
             success: true,
-            p
+            paper,
+            a
         });
     } catch (err) {
         next(err);
@@ -118,11 +134,13 @@ export const getJournalPapers = async (req, res, next) => {
 
 export const getConferencePapers = async (req, res, next) => {
     try {
-        const conference = await Conference.findOne({name: req.params.name});
-        const p = await Paper.find({conference: conference._id, year: { $gt: req.params.start, $lt: req.prams.end }});
+        const conference = await Conference.find({name: req.query.name});
+        const paper = await Paper.find({conference: conference._id, year: { $gt: req.query.start, $lt: req.query.end }});
+        const a = await Author.find({_id: {$in: paper.authors}});
         res.status(200).json({
             success: true,
-            p
+            paper,
+            a
         });
     } catch (err) {
         next(err);
