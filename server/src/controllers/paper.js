@@ -115,6 +115,7 @@ export const addAuthorToBook = async (req, res, next) => {
             }
         }
     });
+
     await Paper.findOneAndUpdate(
         { title: req.body.title },
         {
@@ -124,32 +125,6 @@ export const addAuthorToBook = async (req, res, next) => {
         }
     );
 };
-
-export const getJournalPapers = async (req, res, next) => {
-    try {
-        const journal = await Journal.find({name: req.query.name});
-        const paper = await Paper.find({journal: journal._id, date: {$gt: req.query.start, $lt: req.query.end}});
-        const a = await Author.find({_id: {$in: paper.authors}});
-        res.status(200).json({
-            success: true,
-            paper,
-            a
-        });
-    } catch (err) {
-        next(err);
-    }
-};
-
-
-
-export const addAuthorToBook = async (req, res, next) => {
-    let author = await Author.findOne({firstName: req.body.firstName, lastName: req.body.lastName, affiliation: {$elemMatch: { name: req.body.affiliationName, start: req.body.start}}});
-    await Paper.findOneAndUpdate({title: req.params.title}, {
-        $push: {
-            authors: author._id
-        }});
-    
-}
 
 export const getJournalPapers = async (req, res, next) => {
     try {
