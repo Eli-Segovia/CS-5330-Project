@@ -11,7 +11,6 @@ class SearchAuthor extends React.Component {
             res: []
         };
 
-        this.options = this.options.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -21,14 +20,22 @@ class SearchAuthor extends React.Component {
         this.setState({ [event.target.name]: event.target[property] });
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
         console.log('Inside gui handlesubmit');
-        axios.get('http://localhost:5000/getPaper', {
-            title: this.state.nameofpaper
-        });
-        event.preventDefault();
-        alert('did it');
+        const [fName, lName] = this.state.author.split(' ');
+        let res = await axios.get('http://localhost:5000/authors');
+        let data = res.data;
+
+        let returnedData = data.filter(
+            (author) =>
+                author.firstName === fName ||
+                author.firstName === lName ||
+                author.lastName === lName ||
+                author.lastName === fName
+        );
+        this.setState({ res: returnedData });
+        console.log(this.state.res);
     }
 
     render() {
@@ -58,7 +65,6 @@ class SearchAuthor extends React.Component {
                             />
                         </form>
                     </label>
-                    {this.state.papers.length > 0 && this.options()}
                 </div>
             </>
         );
