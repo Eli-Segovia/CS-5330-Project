@@ -103,11 +103,22 @@ export const addAuthorToBook = async (req, res, next) => {
 
 export const getJournalPapers = async (req, res, next) => {
     try {
-        const journal = await Journal.findOne({name: req.params.name});
-        const p = await Paper.find({journal: journal._id, date: {$gt: req.params.start, $lt: req.params.end}});
+        const journal = await Journal.find({name: req.query.name, date: {$gte: req.query.start, $lte: req.query.end}});
+        console.log(journal);
+        
+        let arry = [];
+        for (var i = 0; i < journal.length; i++ )
+        {
+            arry.push(journal[i]._id);
+            console.log(arry[i]);
+        }
+
+        const paper = await Paper.find({journal: arry});
+        //const a = await Author.find({_id: {$in: paper.authors}});
         res.status(200).json({
             success: true,
-            p
+            paper,
+            //a
         });
     } catch (err) {
         next(err);
@@ -117,11 +128,23 @@ export const getJournalPapers = async (req, res, next) => {
 
 export const getConferencePapers = async (req, res, next) => {
     try {
-        const conference = await Conference.findOne({name: req.query.name});
-        const p = await Paper.find({conference: conference._id, year: { $gt: req.params.start, $lt: req.prams.end }});
+        const conference = await Conference.find({name: req.query.name,  year: { $gte: req.query.start, $lte: req.query.end }});
+        //console.log(conference);
+        //console.log(conference._id);
+        let arry = [];
+        for (var i = 0; i < conference.length; i++ )
+        {
+            arry.push(conference[i]._id);
+            //console.log(arry[i]);
+        }
+        const paper = await Paper.find({conference:{$in: arry}});
+        //console.log(arry);
+        //console.log(paper[0]);
+        //const a = await Author.find({_id: {$in: paper[0].authors}});
         res.status(200).json({
             success: true,
-            p
+            paper,
+            //a
         });
     } catch (err) {
         next(err);
