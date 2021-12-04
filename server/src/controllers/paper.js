@@ -4,7 +4,7 @@ import Journal from '../models/Journal';
 import Conference from '../models/Conference';
 
 export const createPaperInJournal = async (req, res, next) => {
-    let journal = await Journal.findOne({ name: req.body.name });
+    let journal = await Journal.findOne({ name: req.body.name, date: req.body.date });
     if (!journal) {
         journal = new Journal(req.body);
         journal.save();
@@ -31,7 +31,7 @@ export const createPaperInJournal = async (req, res, next) => {
 
 export const createPaperInConference = async (req, res, next) => {
     console.log('this did happen');
-    let conference = await Conference.findOne({ name: req.body.name });
+    let conference = await Conference.findOne({ name: req.body.name, year: req.query.year});
     if (!conference) {
         conference = new Conference(req.body);
         await conference.save();
