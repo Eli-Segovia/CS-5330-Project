@@ -24,6 +24,19 @@ function Home() {
                     >
                         <FontAwesomeIcon icon='book-medical' /> Add Papers
                     </Link>
+                    <Link
+                        to='/searchAuthor'
+                        className='RouteLink btn bg-white btn-block m-2'
+                    >
+                        <FontAwesomeIcon icon='book-medical' /> Search Authors
+                    </Link>
+                    <Link
+                        to='/searchPublication'
+                        className='RouteLink btn bg-white btn-block m-2'
+                    >
+                        <FontAwesomeIcon icon='book-medical' /> Search
+                        Publications
+                    </Link>
                 </div>
             </div>
         </div>
