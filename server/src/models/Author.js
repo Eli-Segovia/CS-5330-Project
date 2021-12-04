@@ -18,8 +18,14 @@ const AuthorSchema = new Schema({
     affiliation: {
         type: Array,
         of: new Schema({
-            name: String,
-            start: Date,
+            name: {
+                type: String,
+                required: true
+            },
+            start: {
+                type: Date,
+                required: true
+            },
             end: Date
         })
     }

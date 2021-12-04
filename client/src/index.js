@@ -6,6 +6,8 @@ import './styles/sass/index.scss';
 import Home from './components/Home';
 import AddPapers from './components/AddPapers/AddPapers';
 import Search from './components/SearchPapers/Search';
+import SearchAuthor from './components/SearchAuthors/SearchAuthor';
+import SearchPublication from './components/SearchPublication/SearchPublication';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { faBookMedical, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -24,6 +26,12 @@ ReactDOM.render(
                 <Route path='searchPapers' element={<Search />}>
                     {/*gonna do some stuff here*/}
                 </Route>
+
+                <Route path='searchAuthor' element={<SearchAuthor />}></Route>
+                <Route
+                    path='searchPublication'
+                    element={<SearchPublication />}
+                ></Route>
             </Route>
         </Routes>
     </BrowserRouter>,

@@ -34,3 +34,4 @@ const PaperSchema = new Schema({
 });
 
 export default mongoose.model('Papers', PaperSchema, "Papers");
+
