@@ -58,37 +58,39 @@ export const getallPapers = async (req, res, next) => {
 }
 
 export const getOnePaper = async (req, res, next) => {
-    //console.log(req.query.title);
-
     try {
-        const paper = await Paper.find({title: req.query.title});
-        res.status(200).json({
-            success: true,
-            paper,
-        });
-
-        const list = paper[0].authors;
-
-        console.log(paper[0].authors);
-
-        for (let index = 0; index < list.length; index++) {
-            let a = list[index];
-            console.log('Inside loop');
-            console.log(a);
-            let author = await Author.find({_id: a});
-            console.log(author);
+        const paper = await Paper.find({ title: req.query.title });
+        const a = await Author.find({_id: {$in: paper[0].authors}});
+        //console.log(paper[0].conference)
+        //console.log(paper[0].journal);
+        if(!paper[0].conference){
+            const j = await Journal.find({_id: paper[0].journal})
+            //console.log('Inside j')
+            //console.log(j);
             res.status(200).json({
                 success: true,
-                author,
+                paper,
+                a,
+                j
+            });
+        }
+        else{
+            const c = await Conference.find({_id: paper[0].conference})
+            //console.log('Inside c')
+            //console.log(c);
+            res.status(200).json({
+                success: true,
+                paper,
+                a,
+                c
             });
             
         }
-        //console.log(paper);
-
     } catch (err) {
         next(err);
     }
-}
+};
+
 
 export const addAuthorToBook = async (req, res, next) => {
     let author = await Author.findOne({firstName: req.body.firstName, lastName: req.body.lastName, affiliation: {$elemMatch: { name: req.body.affiliationName, start: req.body.start}}});
@@ -97,4 +99,31 @@ export const addAuthorToBook = async (req, res, next) => {
             authors: author._id
         }});
     
+}
+
+export const getJournalPapers = async (req, res, next) => {
+    try {
+        const journal = await Journal.findOne({name: req.params.name});
+        const p = await Paper.find({journal: journal._id, date: {$gt: req.params.start, $lt: req.params.end}});
+        res.status(200).json({
+            success: true,
+            p
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
+
+export const getConferencePapers = async (req, res, next) => {
+    try {
+        const conference = await Conference.findOne({name: req.query.name});
+        const p = await Paper.find({conference: conference._id, year: { $gt: req.params.start, $lt: req.prams.end }});
+        res.status(200).json({
+            success: true,
+            p
+        });
+    } catch (err) {
+        next(err);
+    }
 }
