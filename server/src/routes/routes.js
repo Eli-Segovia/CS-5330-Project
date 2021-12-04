@@ -16,17 +16,17 @@ router.route('/getConferencePaper').get(paper.getConferencePapers);
 router.route('/getJournalPaper').get(paper.getJournalPapers);
 
 router.route('/papers').get(paper.getallPapers);
-router
-    .route('/createPaperJournal')
-    .post(journal.createJournal)
-    .post(paper.createPaperInJournal);
+router.route('/createPaperJournal').post(paper.createPaperInJournal);
 
-router
-    .route('/createPaperConference')
-    .post(conference.createConference)
-    .post(paper.createPaperInConference);
+router.route('/createPaperConference').post(paper.createPaperInConference);
 
 router.route('/getAuthorBooks').get(author.getAuthorBooks);
+
+router.route('/getConferencePaper').get(paper.getConferencePapers);
+router.route('/getJournalPaper').get(paper.getJournalPapers);
+
+router.route('/getConfId').get(conference.getConfById);
+router.route('/getJournId').get(journal.getJournalById);
 
 /* Currently, this route is breaking stuff...
 router.route('/addAffiliation').put(author.addAffiliation);
