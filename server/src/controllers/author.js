@@ -41,14 +41,18 @@ export const getAuthors = async (req, res, next) => {
 
 //return books for a given author
 export const getAuthorBooks = async (req, res, next) => {
-    const first = req.params.firstName;
-    const last = req.params.lastName;
+    //console.log(req.query);
+    //console.log(req.query.firstName);
+    //console.log(req.query.lastName);
+    const first = req.query.firstName;
+    const last = req.query.lastName;
     try {
         var as = await Author.find({ firstName: first, lastName: last });
-        if (!user) {
-            return next(new ErrorResponse('User not found', 404));
-        }
-        const papers = await Paper.find({ authors: as.id });
+        //console.log(as);
+        //console.log(as[0].id);
+        const papers = await Paper.find({ authors: as[0].id });
+
+        console.log(papers);
 
         res.json({
             sucess: true,

@@ -33,4 +33,5 @@ const PaperSchema = new Schema({
     }
 });
 
-export default mongoose.model('Papers', PaperSchema, 'Papers');
+export default mongoose.model('Papers', PaperSchema, "Papers");
+

@@ -12,6 +12,9 @@ router.route('/getJournal').get(journal.getJournal);
 router.route('/journals').get(journal.getallJournals);
 
 router.route('/getPaper').get(paper.getOnePaper);
+router.route('/getConferencePaper').get(paper.getConferencePapers);
+router.route('/getJournalPaper').get(paper.getJournalPapers);
+
 router.route('/papers').get(paper.getallPapers);
 router.route('/createPaperJournal').post(paper.createPaperInJournal);
 

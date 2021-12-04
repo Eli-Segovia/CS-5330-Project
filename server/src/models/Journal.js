@@ -21,4 +21,6 @@ const JournalSchema = new Schema({
     }
 });
 
-export default mongoose.model('Journals', JournalSchema, 'Journals');
+
+export default mongoose.model('Journal', JournalSchema, "Journals");
+
