@@ -67,6 +67,22 @@ export const getOnePaper = async (req, res, next) => {
             paper,
         });
 
+        const list = paper[0].authors;
+
+        console.log(paper[0].authors);
+
+        for (let index = 0; index < list.length; index++) {
+            let a = list[index];
+            console.log('Inside loop');
+            console.log(a);
+            let author = await Author.find({_id: a});
+            console.log(author);
+            res.status(200).json({
+                success: true,
+                author,
+            });
+            
+        }
         //console.log(paper);
 
     } catch (err) {
