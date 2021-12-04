@@ -16,8 +16,7 @@ export const createAuthor = async (req, res, next) => {
     if (!author) {
         author = new Author(req.body);
     } else {
-        console.log(author);
-        return next(new Error('author already exists'));
+        res.json({ success: true, newAuthor: author });
     }
     try {
         const newAuthor = await author.save();
