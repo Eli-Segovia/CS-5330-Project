@@ -1,4 +1,4 @@
-import Journal from '../models/Journal'
+import Journal from '../models/Journal';
 
 export const getallJournals = async (req, res, next) => {
     try {
@@ -7,21 +7,26 @@ export const getallJournals = async (req, res, next) => {
     } catch (err) {
         next(err);
     }
-}
+};
 
 export const getJournal = async (req, res, next) => {
     try {
-        const journal = await Journal.find({name: req.params.name});
+        const journal = await Journal.find({ name: req.params.name });
         res.json(journal);
     } catch (err) {
         next(err);
     }
-}
+};
+
+export const getJournalById = async (req, res, next) => {
+    const journal = await Journal.findById(req.query.id);
+    res.status(200).json({ journal });
+};
 
 export const createJournal = async (req, res, next) => {
     let journal = await Journal.findOne({ name: req.body.name });
     if (!journal) {
-            journal = new Journal(req.body);
+        journal = new Journal(req.body);
     } else {
         console.log(journal);
         return next(new Error('journal already exists'));
@@ -31,9 +36,9 @@ export const createJournal = async (req, res, next) => {
         //create token
         //const token = paper.getSignedJwtToken();
 
-        res.json({ success: true, newJournal});
+        res.json({ success: true, newJournal });
     } catch (err) {
         next(err);
         console.log(err);
     }
-}
+};

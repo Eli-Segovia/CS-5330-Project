@@ -13,6 +13,11 @@ export const getOneConference = async (req, res, next) => {
     res.status(200).json({ a });
 };
 
+export const getConfById = async (req, res, next) => {
+    const conference = await Conference.findById(req.query.id);
+    res.status(200).json({ conference });
+};
+
 export const createConference = async (req, res, next) => {
     let conference = await Conference.findOne({ name: req.body.name });
     if (!conference) {
