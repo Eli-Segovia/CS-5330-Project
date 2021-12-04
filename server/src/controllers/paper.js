@@ -70,9 +70,11 @@ export const getallPapers = async (req, res, next) => {
 export const getOnePaper = async (req, res, next) => {
     try {
         const paper = await Paper.find({ title: req.params.title });
+        const a = await Author.find({_id: {$in: paper.authors}});
         res.status(200).json({
             success: true,
-            paper
+            paper,
+            a
         });
     } catch (err) {
         next(err);
@@ -94,8 +96,35 @@ export const addAuthorToBook = async (req, res, next) => {
         { title: req.body.title },
         {
             $push: {
-                authors: req.body.author._id
+                authors: author._id
             }
         }
     );
 };
+
+export const getJournalPapers = async (req, res, next) => {
+    try {
+        const journal = await Journal.findOne({name: req.params.name});
+        const p = await Paper.find({journal: journal._id, date: {$gt: req.params.start, $lt: req.params.end}});
+        res.status(200).json({
+            success: true,
+            p
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
+
+export const getConferencePapers = async (req, res, next) => {
+    try {
+        const conference = await Conference.findOne({name: req.params.name});
+        const p = await Paper.find({conference: conference._id, year: { $gt: req.params.start, $lt: req.prams.end }});
+        res.status(200).json({
+            success: true,
+            p
+        });
+    } catch (err) {
+        next(err);
+    }
+}
