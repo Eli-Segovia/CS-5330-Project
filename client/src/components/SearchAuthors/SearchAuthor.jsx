@@ -22,6 +22,10 @@ class SearchAuthor extends React.Component {
 
     async handleSubmit(event) {
         event.preventDefault();
+<<<<<<< HEAD
+=======
+        console.log('Inside gui handlesubmit');
+>>>>>>> cba78dcef14ece317116dfc6fbe4bddc9736b73f
         const [fName, lName] = this.state.author.split(' ');
         let res = await axios.get('http://localhost:5000/authors');
         let data = res.data;
@@ -33,6 +37,7 @@ class SearchAuthor extends React.Component {
                 author.lastName === lName ||
                 author.lastName === fName
         );
+<<<<<<< HEAD
 
         let ids = returnedData.map((author) => {
             return author._id;
@@ -85,6 +90,10 @@ getJournId
         });
         console.log(complete);
         this.setState({ res: complete });
+=======
+        this.setState({ res: returnedData });
+        console.log(this.state.res);
+>>>>>>> cba78dcef14ece317116dfc6fbe4bddc9736b73f
     }
 
     render() {
