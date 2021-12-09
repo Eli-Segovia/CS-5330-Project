@@ -219,36 +219,7 @@ class AddPapers extends React.Component {
                         className='card container py-4 d-flex flex-column'
                     >
                         <h1 className='card-title text-center '>Add Paper</h1>
-                        <div className='align-self-center'>
-                            <label className='switch'>
-                                <input
-                                    name='isconference'
-                                    checked={this.state.isconference}
-                                    type='checkbox'
-                                    onChange={(e) => {
-                                        [
-                                            'Conferencename',
-                                            'ConferencetimeHeld',
-                                            'ConferenceYear',
-                                            'ConferenceLocation',
-                                            'Journalname',
-                                            'Journaldate',
-                                            'Journalvolume'
-                                        ].forEach((st) => {
-                                            this.setState({ [st]: '' });
-                                        });
 
-                                        this.handleChange(e);
-                                    }}
-                                />
-                                <span className='slider round'></span>
-                            </label>
-                            <label className='m-1' htmlFor='isconference'>
-                                {this.state.isconference
-                                    ? 'Conference'
-                                    : 'Journal'}
-                            </label>
-                        </div>
                         <div className='d-flex flex-column my-3'>
                             <label className='my-2'>
                                 <input
