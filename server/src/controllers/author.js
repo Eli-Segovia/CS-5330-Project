@@ -50,14 +50,23 @@ export const getAuthorBooks = async (req, res, next) => {
         var as = await Author.find({ firstName: first, lastName: last });
         //console.log(as);
         //console.log(as[0].id);
-        const papers = await Paper.find({ authors: as[0].id });
+        //const papers = await Paper.find({ authors: as[0].id });
 
-        console.log(papers);
+        var pArr = [];
+        for(let i = 0; i < as.length; i++){
+            pArr.push(await Paper.find({authors: as.id}))
+        }
+        //const papers = await Paper.find({ authors: as.id })
 
         res.json({
             sucess: true,
-            papers
+            pArr
         });
+
+        /*res.json({
+            sucess: true,
+            papers
+        });*/
     } catch (err) {
         next(err);
     }
