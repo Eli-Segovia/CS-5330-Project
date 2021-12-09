@@ -31,7 +31,8 @@ class AddPapers extends React.Component {
 
     async addResources() {
         let authors = [];
-        this.state.authors.forEach(async (author, idx) => {
+        for (let idx = 0; idx < this.state.authors.length; idx++) {
+            let author = this.state.authors[idx];
             const [firstName, lastName] = author.split(' ');
             let affiliation = null;
             if (
@@ -58,37 +59,31 @@ class AddPapers extends React.Component {
                     data
                 );
                 authors.push(res.data.newAuthor._id);
-                if (this.state.isconference) {
-                    console.log(authors);
-                    await axios.post(
-                        'http://localhost:5000/createPaperConference',
-                        {
-                            name: this.state.Conferencename,
-                            timeHeld: this.state.ConferencetimeHeld,
-                            year: this.state.ConferenceYear,
-                            location: this.state.ConferenceLocation,
-                            title: this.state.title,
-                            url: this.state.url || null,
-                            page: this.state.page || null,
-                            authors: [...authors]
-                        }
-                    );
-                } else {
-                    await axios.post(
-                        'http://localhost:5000/createPaperJournal',
-                        {
-                            name: this.state.Journalname,
-                            date: this.state.Journaldate,
-                            volume: this.state.Journalvolume,
-                            title: this.state.title,
-                            url: this.state.url || null,
-                            page: this.state.page || null,
-                            authors: [...authors]
-                        }
-                    );
-                }
             }
-        });
+        }
+        if (this.state.isconference) {
+            console.log(authors);
+            await axios.post('http://localhost:5000/createPaperConference', {
+                name: this.state.Conferencename,
+                timeHeld: this.state.ConferencetimeHeld,
+                year: this.state.ConferenceYear,
+                location: this.state.ConferenceLocation,
+                title: this.state.title,
+                url: this.state.url || null,
+                page: this.state.page || null,
+                authors: [...authors]
+            });
+        } else {
+            await axios.post('http://localhost:5000/createPaperJournal', {
+                name: this.state.Journalname,
+                date: this.state.Journaldate,
+                volume: this.state.Journalvolume,
+                title: this.state.title,
+                url: this.state.url || null,
+                page: this.state.page || null,
+                authors: [...authors]
+            });
+        }
     }
 
     renderExtraOptions() {
@@ -191,9 +186,27 @@ class AddPapers extends React.Component {
         this.setState({ [event.target.name]: event.target[property] });
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
-        this.addResources();
+        await this.addResources();
+        alert('Submitted');
+        this.setState({
+            title: '',
+            authors: [''],
+            affiliations: [''],
+            startDate: [''],
+            endDate: [''],
+            url: '',
+            page: '',
+            isconference: true,
+            Conferencename: '',
+            ConferencetimeHeld: '',
+            ConferenceYear: '',
+            ConferenceLocation: '',
+            Journalname: '',
+            Journaldate: '',
+            Journalvolume: ''
+        });
     }
 
     render() {

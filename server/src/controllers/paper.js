@@ -4,7 +4,10 @@ import Journal from '../models/Journal';
 import Conference from '../models/Conference';
 
 export const createPaperInJournal = async (req, res, next) => {
-    let journal = await Journal.findOne({ name: req.body.name, date: req.body.date });
+    let journal = await Journal.findOne({
+        name: req.body.name,
+        date: req.body.date
+    });
     if (!journal) {
         journal = new Journal(req.body);
         journal.save();
@@ -31,7 +34,10 @@ export const createPaperInJournal = async (req, res, next) => {
 
 export const createPaperInConference = async (req, res, next) => {
     console.log('this did happen');
-    let conference = await Conference.findOne({ name: req.body.name, year: req.query.year});
+    let conference = await Conference.findOne({
+        name: req.body.name,
+        year: req.query.year
+    });
     if (!conference) {
         conference = new Conference(req.body);
         await conference.save();
@@ -70,23 +76,25 @@ export const getallPapers = async (req, res, next) => {
 export const getOnePaper = async (req, res, next) => {
     try {
         const paper = await Paper.find({ title: req.query.title });
-        const a = await Author.find({_id: {$in: paper[0].authors}});
-        //console.log(paper[0].conference)
-        //console.log(paper[0].journal);
-        if(!paper[0].conference){
-            const j = await Journal.find({_id: paper[0].journal})
-            //console.log('Inside j')
-            //console.log(j);
+        const a = [];
+        for (const author of paper[0].authors) {
+            console.log(author);
+            a.push(await Author.findById(author));
+        }
+
+        console.log(a);
+
+        if (!paper[0].conference) {
+            const j = await Journal.find({ _id: paper[0].journal });
+
             res.status(200).json({
                 success: true,
                 paper,
                 a,
                 j
             });
-        }
-        else{
-
-            const c = await Conference.find({_id: paper[0].conference})
+        } else {
+            const c = await Conference.find({ _id: paper[0].conference });
             //console.log('Inside c')
             //console.log(c);
 
@@ -96,9 +104,7 @@ export const getOnePaper = async (req, res, next) => {
                 a,
                 c
             });
-            
         }
-
     } catch (err) {
         next(err);
     }
@@ -128,52 +134,51 @@ export const addAuthorToBook = async (req, res, next) => {
 
 export const getJournalPapers = async (req, res, next) => {
     try {
-        const journal = await Journal.find({name: req.query.name, date: {$gte: req.query.start, $lte: req.query.end}});
+        const journal = await Journal.find({
+            name: req.query.name,
+            date: { $gte: req.query.start, $lte: req.query.end }
+        });
         console.log(journal);
-        
+
         let arry = [];
-        for (var i = 0; i < journal.length; i++ )
-        {
+        for (var i = 0; i < journal.length; i++) {
             arry.push(journal[i]._id);
             console.log(arry[i]);
         }
 
-        const paper = await Paper.find({journal: arry});
+        const paper = await Paper.find({ journal: arry });
         //const a = await Author.find({_id: {$in: paper.authors}});
         res.status(200).json({
             success: true,
-            paper,
+            paper
             //a
         });
     } catch (err) {
         next(err);
     }
-}
-
+};
 
 export const getConferencePapers = async (req, res, next) => {
     try {
-        const conference = await Conference.find({name: req.query.name,  year: { $gte: req.query.start, $lte: req.query.end }});
+        const conference = await Conference.find({
+            name: req.query.name,
+            year: { $gte: req.query.start, $lte: req.query.end }
+        });
         //console.log(conference);
         //console.log(conference._id);
         let arry = [];
-        for (var i = 0; i < conference.length; i++ )
-        {
+        for (var i = 0; i < conference.length; i++) {
             arry.push(conference[i]._id);
             //console.log(arry[i]);
         }
-        const paper = await Paper.find({conference:{$in: arry}});
-        //console.log(arry);
-        //console.log(paper[0]);
-        //const a = await Author.find({_id: {$in: paper[0].authors}});
+        const paper = await Paper.find({ conference: { $in: arry } });
+
         res.status(200).json({
             success: true,
-            paper,
+            paper
             //a
         });
     } catch (err) {
         next(err);
     }
-
-}
-
+};
