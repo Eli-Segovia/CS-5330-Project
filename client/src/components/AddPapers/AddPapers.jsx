@@ -21,7 +21,7 @@ class AddPapers extends React.Component {
             ConferenceLocation: '',
             Journalname: '',
             Journaldate: '',
-            Journalvolume: ''
+            Journalvolume: '',
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -41,7 +41,7 @@ class AddPapers extends React.Component {
             ) {
                 let aff_data = {
                     name: this.state.affiliations[idx],
-                    start: this.state.startDate[idx] || Date()
+                    start: this.state.startDate[idx] || Date(),
                 };
 
                 if (this.state.endDate[idx]) {
@@ -71,7 +71,7 @@ class AddPapers extends React.Component {
                 title: this.state.title,
                 url: this.state.url || null,
                 page: this.state.page || null,
-                authors: [...authors]
+                authors: [...authors],
             });
         } else {
             await axios.post('http://localhost:5000/createPaperJournal', {
@@ -81,7 +81,7 @@ class AddPapers extends React.Component {
                 title: this.state.title,
                 url: this.state.url || null,
                 page: this.state.page || null,
-                authors: [...authors]
+                authors: [...authors],
             });
         }
     }
@@ -205,7 +205,7 @@ class AddPapers extends React.Component {
             ConferenceLocation: '',
             Journalname: '',
             Journaldate: '',
-            Journalvolume: ''
+            Journalvolume: '',
         });
     }
 
@@ -219,7 +219,27 @@ class AddPapers extends React.Component {
                         className='card container py-4 d-flex flex-column'
                     >
                         <h1 className='card-title text-center '>Add Paper</h1>
-
+                        <div className='align-self-center'>
+                            <label className='switch'>
+                                <input
+                                    name='isconference'
+                                    checked={this.state.isconference}
+                                    type='checkbox'
+                                    onChange={() =>
+                                        this.setState({
+                                            isconference:
+                                                !this.state.isconference,
+                                        })
+                                    }
+                                />
+                                <span className='slider round'></span>
+                            </label>
+                            <label className='m-1' htmlFor='isconference'>
+                                {this.state.isconference
+                                    ? 'Conference'
+                                    : 'Journal'}
+                            </label>
+                        </div>
                         <div className='d-flex flex-column my-3'>
                             <label className='my-2'>
                                 <input
@@ -245,7 +265,7 @@ class AddPapers extends React.Component {
                                                 value={this.state.authors[idx]}
                                                 placeholder='Name'
                                                 className='form-control'
-                                                onChange={(e) => {
+                                                onChange={e => {
                                                     let authors =
                                                         this.state.authors;
                                                     authors[idx] =
@@ -264,14 +284,14 @@ class AddPapers extends React.Component {
                                                 }
                                                 placeholder='Affiliations'
                                                 className='form-control my-2'
-                                                onChange={(e) => {
+                                                onChange={e => {
                                                     let affiliations =
                                                         this.state.affiliations;
                                                     affiliations[idx] =
                                                         e.target.value;
                                                     this.setState({
                                                         affiliations:
-                                                            affiliations
+                                                            affiliations,
                                                     });
                                                 }}
                                             />
@@ -285,13 +305,13 @@ class AddPapers extends React.Component {
                                                 value={
                                                     this.state.startDate[idx]
                                                 }
-                                                onChange={(e) => {
+                                                onChange={e => {
                                                     let startDates =
                                                         this.state.startDate;
                                                     startDates[idx] =
                                                         e.target.value;
                                                     this.setState({
-                                                        startDate: startDates
+                                                        startDate: startDates,
                                                     });
                                                 }}
                                                 className='form-control'
@@ -304,13 +324,13 @@ class AddPapers extends React.Component {
                                                 id='endDate'
                                                 name='endDate'
                                                 value={this.state.endDate[idx]}
-                                                onChange={(e) => {
+                                                onChange={e => {
                                                     let endDates =
                                                         this.state.endDate;
                                                     endDates[idx] =
                                                         e.target.value;
                                                     this.setState({
-                                                        endDate: endDates
+                                                        endDate: endDates,
                                                     });
                                                 }}
                                                 className='form-control'
@@ -321,18 +341,18 @@ class AddPapers extends React.Component {
                                             <button
                                                 className='btn btn-success'
                                                 type='button'
-                                                onClick={(e) => {
+                                                onClick={e => {
                                                     [
                                                         'authors',
                                                         'affiliations',
                                                         'startDate',
-                                                        'endDate'
-                                                    ].forEach((st) => {
+                                                        'endDate',
+                                                    ].forEach(st => {
                                                         let thisState =
                                                             this.state[st];
                                                         thisState.push('');
                                                         this.setState({
-                                                            [st]: thisState
+                                                            [st]: thisState,
                                                         });
                                                     });
                                                 }}
@@ -347,18 +367,18 @@ class AddPapers extends React.Component {
                                                 <button
                                                     className='btn btn-danger'
                                                     type='button'
-                                                    onClick={(e) => {
+                                                    onClick={e => {
                                                         [
                                                             'authors',
                                                             'affiliations',
                                                             'startDate',
-                                                            'endDate'
-                                                        ].forEach((st) => {
+                                                            'endDate',
+                                                        ].forEach(st => {
                                                             let thisState =
                                                                 this.state[st];
                                                             thisState.pop();
                                                             this.setState({
-                                                                [st]: thisState
+                                                                [st]: thisState,
                                                             });
                                                         });
                                                     }}
